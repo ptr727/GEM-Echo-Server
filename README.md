@@ -9,6 +9,7 @@ This is a .NET Core console utility to help diagnose and echo [GEM](https://www.
 ## Usage
 
 - I am not publishing binaries, you need to compile your own, [follow](#build) the build instructions.
+- Run `GEMEchoServer.exe` or `GEMEchoServer.exe [Listening Port] [Output CSV File]`.
 
 ## Notes
 

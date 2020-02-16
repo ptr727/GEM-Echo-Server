@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GEMEchoServer": {
+      "commandName": "Project",
+      "commandLineArgs": "8000 GEMEchoServer.csv"
+    }
+  }
+}

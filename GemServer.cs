@@ -7,7 +7,7 @@ namespace GEMEchoServer
 {
     internal sealed class GemServer : IDisposable
     {
-        public GemServer(IPAddress address, int port)
+        public GemServer(IPAddress address, int port, string csvFile)
         {
             Endpoint = new IPEndPoint(address, port);
             Socket = new Socket(Endpoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -16,6 +16,7 @@ namespace GEMEchoServer
             Sessions = new ConcurrentDictionary<Guid, GemSession>();
             Gems = new ConcurrentDictionary<string, Gem>();
             Lock = new object();
+            OutputFile = new GemOutputFile(csvFile);
         }
 
         ~GemServer()
@@ -49,6 +50,9 @@ namespace GEMEchoServer
             Socket.Bind(Endpoint);
             Endpoint = (IPEndPoint)Socket.LocalEndPoint;
             Peer = Endpoint.ToString();
+
+            // Write the CSV header
+            OutputFile.WriteHeader();
 
             // Listen and accept connections
             Stopping = false;
@@ -101,7 +105,7 @@ namespace GEMEchoServer
 
         internal void Disconnect(GemSession session)
         {
-            // TODO : How to delete and GC the client after it disconnects?
+            // TODO : Verify that dispose gets called when the client reference is removed from the list
             Sessions.TryRemove(session.Id, out GemSession _);
         }
 
@@ -124,11 +128,15 @@ namespace GEMEchoServer
 
         public void ProcessPacket(Bin48NetTime packet)
         {
+            // Log output
             Console.WriteLine(packet.Gem.ToString());
+            OutputFile.LogPacket(packet.Gem);
 
-            // Save the previous value keyed by GEM serial number
+            // Save the previous value keyed by the GEM serial number
             // Make a deep copy so that the values are not modified as the packet is reused
             Gems.TryAdd(packet.Gem.SerialNumber, new Gem(packet.Gem));
+
+            // TODO : Use the previous value to calculate the consumption / delta values
         }
 
         private string Peer;
@@ -142,6 +150,7 @@ namespace GEMEchoServer
         private readonly ConcurrentDictionary<string, Gem> Gems;
         private readonly object Lock;
         private bool Disposed;
+        private readonly GemOutputFile OutputFile;
 
         private const int ListenBacklog = 16;
     }
