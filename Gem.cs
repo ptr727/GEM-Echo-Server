@@ -17,6 +17,9 @@ namespace GEMEchoServer
 
         public Gem(Gem clone)
         {
+            if (clone == null)
+                throw new ArgumentNullException(nameof(clone));
+
             SerialNumber = clone.SerialNumber;
             Voltage = clone.Voltage;
             Seconds = clone.Seconds;
