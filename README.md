@@ -50,35 +50,41 @@ You could use [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/
 - Compile the code.
 
 ```shell
-C:\Users\piete>md tmp
-C:\Users\piete>cd tmp
+C:\Users\piete\source>md tmp
+C:\Users\piete\source>cd tmp
 
-C:\Users\piete\tmp>git init
-Initialized empty Git repository in C:/Users/piete/tmp/.git/
+C:\Users\piete\source\tmp>git init
+Initialized empty Git repository in C:/Users/piete/source/tmp/.git/
 
-C:\Users\piete\tmp>git pull https://github.com/ptr727/DiskSpeedTest.git
-...
-From https://github.com/ptr727/DiskSpeedTest
+C:\Users\piete\source\tmp>git pull https://github.com/ptr727/GEM-Echo-Server.git
+remote: Enumerating objects: 32, done.
+remote: Counting objects: 100% (32/32), done.
+remote: Compressing objects: 100% (29/29), done.
+                                                              Unpacking objects:  62% (20/32)
+Unpacking objects: 100% (32/32), done.
+From https://github.com/ptr727/GEM-Echo-Server
  * branch            HEAD       -> FETCH_HEAD
 
-C:\Users\piete>cd DiskSpeedTest
-
-C:\Users\piete\tmp\DiskSpeedTest>dotnet build
-Microsoft (R) Build Engine version 16.4.0+e901037fe for .NET Core
+C:\Users\piete\source\tmp>
+C:\Users\piete\source\tmp>dotnet build
+Microsoft (R) Build Engine version 16.5.0-preview-20064-06+86d9494e4 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
-
-  Restore completed in 175.55 ms for C:\Users\piete\tmp\DiskSpeedTest\DiskSpeedTest.csproj.
-...
-DiskSpeedTest -> C:\Users\piete\tmp\DiskSpeedTest\bin\Debug\netcoreapp3.1\DiskSpeedTest.dll
+  Restore completed in 160.89 ms for C:\Users\piete\source\tmp\GEMEchoServer.csproj.
+  You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview
 ...
 Build succeeded.
 ...
-    3 Warning(s)
+    4 Warning(s)
     0 Error(s)
 
 Time Elapsed 00:00:01.05
 
-C:\Users\piete\tmp\DiskSpeedTest>cd bin\Debug\netcoreapp3.1
-C:\Users\piete\tmp\DiskSpeedTest\bin\Debug\netcoreapp3.1>DiskSpeedTest.exe
-1/17/2020 7:31:15 AM : Usage : DiskSpeedTest.exe [JSON config file]
+C:\Users\piete\source\tmp>cd bin\Debug\netcoreapp3.1
+C:\Users\piete\source\tmp\bin\Debug\netcoreapp3.1>
+C:\Users\piete\source\tmp\bin\Debug\netcoreapp3.1>GEMEchoServer.exe
+Listening on port 8000...
+0.0.0.0:8000 : Listening for connections
+Press Enter to stop...
+192.168.1.148:2065 : Connected
+192.168.1.148:2065 : Received : 22
 ```
